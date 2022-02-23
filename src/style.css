@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+.images{
+    width: 150px;
+    align-items: center;
+}
+.card-container{
+    width: fit-content;
+    background-color: rgb(235, 213, 255); 
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 50px 50px;
+    text-align: center;
+    gap: 20px;
+    margin: auto;
+}
+.cardBackground{
+    width: 170px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+.cardBackground-right{
+    width: 170px;
+    background-color: rgb(131, 243, 159);
+    border-radius: 10px; 
+    box-shadow: rgba(0, 0, 0, 0.233) 0px 2px 8px;
+   
+}
+.cardBackground-wrong{
+    width: 170px;
+    background-color: rgb(243, 131, 131);
+    border-radius: 10px; 
+    box-shadow: rgba(0, 0, 0, 0.233) 0px 2px 8px;
+   
+}
+.cardBackground-seleted{
+    width: 170px;
+    background-color: rgb(190, 190, 190);
+    border-radius: 10px; 
+    box-shadow: rgba(0, 0, 0, 0.233) 0px 2px 8px;
+   
+}
+.cardBackground:hover{
+    box-shadow: rgba(0, 0, 0, 0.233) 0px 2px 8px;
+    background-color: rgba(243, 243, 243, 0.637);
+}
+
+
+
