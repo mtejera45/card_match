@@ -10,91 +10,64 @@ export default function Cards(props){
     const[idCheckOne, setIdCheckOne] = React.useState(null)
     const[idCheckTwo, setIdCheckTwo] = React.useState(null)
 
-
-
-    console.log(cards)
-    console.log("one: " + choiseOne)
-    console.log("two: " + choiseTwo)
-    console.log("IDone: " + idCheckOne)
-    console.log("IDtwo: " + idCheckTwo)
-
     function handleClick(card){
         if(!choiseOne){
             setChoiseOne(card.value)
-            setIdCheckOne(card.id)
+            setIdCheckOne(card.id)            
+            document.getElementById(card.id).setAttribute('class', 'cardBackground-seleted');
         } if (choiseOne){
             setChoiseTwo(card.value)
             setIdCheckTwo(card.id)
+            document.getElementById(card.id).removeAttribute('class', 'cardBackground-seleted');
         }
     }
 
     React.useEffect(()=>{
         if(choiseOne && choiseTwo){ 
             if(choiseOne === choiseTwo && idCheckOne !== idCheckTwo){
-                setCards(prevCards =>{
-                    return prevCards.map(card =>{
-                        if(card.value === choiseOne){
-                            return{ ...card,
-                                    imgStatus: "cardBackground-right",
-                                    click: false
-                                }
-                        } else {
-                            return card
-                        }
-                    })
-                })
+                document.getElementById(idCheckOne).setAttribute('class', 'cardBackground-right');
+                document.getElementById(idCheckTwo).setAttribute('class', 'cardBackground-right');
                 resetCards()
-                              
-            } else {
-                resetCards()
-            } 
-            
-            if (choiseOne !== choiseTwo && idCheckOne !== idCheckTwo) {
-                setCards(prevCards =>{
-                    return prevCards.map(card =>{
-                        if(card.id === idCheckOne){
-                            return{ ...card,
-                                    imgStatus: "cardBackground-wrong"}
-                        } if(card.id === idCheckTwo){
-                            return{ ...card,
-                                    imgStatus: "cardBackground-wrong"}
-                        }
-                        else {
-                            return card
-                        }
-                    })
-                })
-                resetCards()
-            } else{
-                resetCards()
-            }
-        }
-    },[choiseOne, choiseTwo])
+            }else {
+                document.getElementById(idCheckOne).setAttribute('class', 'cardBackground-wrong');
+                document.getElementById(idCheckTwo).setAttribute('class', 'cardBackground-wrong');
+                setTimeout (() =>{
+                    document.getElementById(idCheckOne).removeAttribute('class', 'cardBackground-wrong');
+                    document.getElementById(idCheckTwo).removeAttribute('class', 'cardBackground-wrong');
+                    document.getElementById(idCheckOne).setAttribute('class', 'cardBackground');
+                    document.getElementById(idCheckTwo).setAttribute('class', 'cardBackground');
+                    resetCards()
+                }, 700);
+            }}
 
-    function resetCards(){
+        },[choiseOne, choiseTwo])
+        
+        function resetCards(){
         setChoiseOne(null)
         setChoiseTwo(null)
         setIdCheckOne(null)
         setIdCheckTwo(null)
-    }
+        }
 
     const cardsDataArray = cards.map(card =>(
         <div
-            className={card.imgStatus}  
             key={card.id}
+            id={card.id}
+            value={card.value}
+            className={"cardBackground"}
         >
             <img
                 alt={card.alt}
                 className="images"
                 src={card.imgUrl} 
-                onClick={card.click? ()=>handleClick(card) : null}
+                onClick={()=>handleClick(card)}      
             />
         </div>
-    ))
-              
+    ))      
     return (
         <div
             className="card-container"
-        >{cardsDataArray}</div>
+        >
+        {cardsDataArray}</div>
     )
-}
+    }
